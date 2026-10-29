@@ -984,4 +984,11 @@ When reporting an issue, include the steps to reproduce it, the expected behavio
 - Do not assume that a successful build proves that payments and authentication are secure.
 - Complete build, integration, and security testing before deploying to production.
 
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full license text.
+
+Third-party libraries, frameworks, images, fonts, and other bundled components remain subject to their own licenses. In particular, review the licensing requirements for iTextSharp 5 before redistributing or commercially deploying the complete application.
+
+**Repository:** [Maharaja Travels — Bus Booking Website](https://github.com/ChetanLokare/maharaja-travels-bus-booking-website)
 **Repository:** [Maharaja Travels — Bus Booking Website](https://github.com/ChetanLokare/maharaja-travels-bus-booking-website)
