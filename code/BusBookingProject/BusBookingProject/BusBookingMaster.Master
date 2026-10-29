@@ -1,0 +1,115 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="BusBookingMaster.master.cs" Inherits="BusBookingProject.BusBookingMaster" %>
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#4338ca" />
+    <meta name="color-scheme" content="light dark" />
+    <title>Maharaja Travel's</title>
+    <script>
+        (function () {
+            try {
+                var t = localStorage.getItem('mbt-theme') || 'system';
+                var dark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                document.documentElement.setAttribute('data-bs-theme', dark ? 'dark' : 'light');
+            } catch (e) { }
+        })();
+    </script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous" />
+    <link href="~/fontawesome/css/all.min.css" rel="stylesheet" runat="server" />
+    <link id="lnkSiteCss" rel="stylesheet" runat="server" />
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <a class="visually-hidden-focusable position-absolute p-2 bg-body" href="#main">Skip to content</a>
+    <form id="form1" runat="server">
+        <nav class="navbar navbar-expand-lg sticky-top mbt-nav">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="<%= ResolveUrl("~/Default.aspx") %>">
+                    <span class="brand-mark"><i class="fa-solid fa-bus"></i></span>
+                    <span>Maharaja Travel's</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-3">
+                        <li class="nav-item"><a class="nav-link<%= NavActive("Default.aspx") %>" href="<%= ResolveUrl("~/Default.aspx") %>">Home</a></li>
+                        <li class="nav-item"><a class="nav-link<%= NavActive("Home.aspx") %>" href="<%= ResolveUrl("~/Home.aspx") %>">Book a bus</a></li>
+                        <% if (IsLoggedIn) { %>
+                        <li class="nav-item"><a class="nav-link<%= NavActive("BookingReport.aspx") %>" href="<%= ResolveUrl("~/BookingReport.aspx") %>">My bookings</a></li>
+                        <% } %>
+                        <li class="nav-item"><a class="nav-link<%= NavActive("Feedback.aspx") %>" href="<%= ResolveUrl("~/Feedback.aspx") %>">Feedback</a></li>
+                        <li class="nav-item"><a class="nav-link<%= NavActive("AboutUs.aspx") %>" href="<%= ResolveUrl("~/AboutUs.aspx") %>">About us</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="dropdown">
+                            <button class="btn btn-icon" type="button" id="themeToggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Choose theme">
+                                <i class="fa-solid fa-circle-half-stroke" data-theme-icon></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="themeToggle">
+                                <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" data-theme-value="light"><i class="fa-solid fa-sun fa-fw"></i>Light<i class="fa-solid fa-check ms-auto theme-check"></i></button></li>
+                                <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" data-theme-value="dark"><i class="fa-solid fa-moon fa-fw"></i>Dark<i class="fa-solid fa-check ms-auto theme-check"></i></button></li>
+                                <li><button type="button" class="dropdown-item d-flex align-items-center gap-2" data-theme-value="system"><i class="fa-solid fa-desktop fa-fw"></i>System default<i class="fa-solid fa-check ms-auto theme-check"></i></button></li>
+                            </ul>
+                        </div>
+                        <% if (IsLoggedIn) { %>
+                        <div class="dropdown">
+                            <button class="btn btn-outline-primary d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="avatar"><asp:Literal ID="litInitial" runat="server" /></span>
+                                <span class="d-none d-sm-inline"><asp:Label ID="lblName" runat="server" /></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow">
+                                <li><a class="dropdown-item" href="<%= ResolveUrl("~/BookingReport.aspx") %>"><i class="fa-solid fa-ticket fa-fw me-2"></i>My bookings</a></li>
+                                <li><a class="dropdown-item" href="<%= ResolveUrl("~/Home.aspx") %>"><i class="fa-solid fa-magnifying-glass fa-fw me-2"></i>Search buses</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><asp:LinkButton ID="btnLogout" runat="server" CssClass="dropdown-item text-danger" OnClick="btnLogout_Click" CausesValidation="false"><i class="fa-solid fa-right-from-bracket fa-fw me-2"></i>Sign out</asp:LinkButton></li>
+                            </ul>
+                        </div>
+                        <% } else { %>
+                        <a class="btn btn-outline-primary" href="<%= ResolveUrl("~/Login.aspx") %>">Sign in</a>
+                        <a class="btn btn-primary" href="<%= ResolveUrl("~/UserRegistration.aspx") %>">Sign up</a>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main id="main" class="page-enter">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+        </main>
+
+        <footer class="mbt-footer mt-5">
+            <div class="container py-4">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-5">
+                        <div class="d-flex align-items-center gap-2 fw-bold fs-5 mb-1"><span class="brand-mark"><i class="fa-solid fa-bus"></i></span>Maharaja Travel's</div>
+                        <p class="small text-body-secondary mb-0">Comfortable journeys across Maharashtra and beyond.</p>
+                    </div>
+                    <div class="col-md-4 small">
+                        <a class="d-block text-decoration-none" href="<%= ResolveUrl("~/Home.aspx") %>">Book a bus</a>
+                        <a class="d-block text-decoration-none" href="<%= ResolveUrl("~/AboutUs.aspx") %>">About us</a>
+                        <a class="d-block text-decoration-none" href="<%= ResolveUrl("~/Feedback.aspx") %>">Feedback &amp; support</a>
+                    </div>
+                    <div class="col-md-3 small text-md-end text-body-secondary">
+                        <div><i class="fa-solid fa-lock me-1"></i>Secure payments by Razorpay</div>
+                        <div>UPI &middot; Cards &middot; Net banking</div>
+                    </div>
+                </div>
+                <hr class="my-3" />
+                <div class="small text-body-secondary">&copy; <%= DateTime.Now.Year %> Maharaja Travel's. All rights reserved.</div>
+            </div>
+        </footer>
+    </form>
+
+    <div class="toast-container position-fixed top-0 end-0 p-3 mbt-toasts" id="toastHost" aria-live="polite" aria-atomic="true"></div>
+    <div id="mbtLoading" class="mbt-loading" hidden><div class="spinner-border text-light" role="status"><span class="visually-hidden">Loading...</span></div></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="<%= Asset("~/js/site.js") %>"></script>
+    <asp:ContentPlaceHolder ID="scripts" runat="server"></asp:ContentPlaceHolder>
+</body>
+</html>
