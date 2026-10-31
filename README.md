@@ -990,5 +990,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 Third-party libraries, frameworks, images, fonts, and other bundled components remain subject to their own licenses. In particular, review the licensing requirements for iTextSharp 5 before redistributing or commercially deploying the complete application.
 
+## 👨‍💻 Author
+
+**Chetan Lokare**
+
+- GitHub: [ChetanLokare](https://github.com/ChetanLokare)
+- LinkedIn: [Chetan Lokare](https://www.linkedin.com/in/chetan-lokare-50ba65175)
+
+---
+
 **Repository:** [Maharaja Travels — Bus Booking Website](https://github.com/ChetanLokare/maharaja-travels-bus-booking-website)
-**Repository:** [Maharaja Travels — Bus Booking Website](https://github.com/ChetanLokare/maharaja-travels-bus-booking-website)
+
